@@ -1,0 +1,22 @@
+<div class="container">
+    <h3>Autores de nacionalidad cuyo país es {{ nacionalidad }}</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Nacionalidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autor of autores">
+          <td>{{ autor.nombre }}</td>
+          <td>{{ autor.fechaNacimiento | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ autor.nacionalidad }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="autores.length === 0">No se encontraron autores de esta nacionalidad.</p>
+  </div>
+
+  

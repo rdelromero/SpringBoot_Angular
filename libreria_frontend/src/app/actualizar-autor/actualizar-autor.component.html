@@ -1,0 +1,47 @@
+<div class="container">
+    <h3>Formulario de actualización de autor</h3>
+    <form #autorForm="ngForm" (ngSubmit)="onSubmit(autorForm)">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><label for="nombreLI">Nombre:</label></td>
+            <td><input type="text" id="nombreLI" [(ngModel)]="autor.nombre" name="nombre" required></td>
+          </tr>
+          <tr>
+            <td><label for="fechaNacimientoLI">Fecha nacimiento:</label></td>
+            <td><input type="date" id="fechaNacimientoLI" [(ngModel)]="autor.fechaNacimiento" name="fechaNacimiento"></td>
+          </tr>
+          <tr>
+            <td><label for="nacionalidadLI">Nacionalidad:</label></td>
+            <td><input type="text" id="nacionalidadLI" [(ngModel)]="autor.nacionalidad" name="nacionalidad"></td>
+          </tr>
+          <tr>
+            <td><label for="imagenLI">Imagen (enlace):</label></td>
+            <td><input type="text" id="imagenLI" [(ngModel)]="autor.imagen" name="imagen"></td>
+          </tr>
+          <tr>
+            <td><label for="direccionEmailLI">Correo Electrónico:</label></td>
+            <td><input type="email" id="direccionEmailLI" [(ngModel)]="autor.direccionEmail" name="direccionEmail" required pattern="^[^@]+@[^@]+\.[^@]+$"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <div>
+        <label for="descripcionLI">Descripcion:</label><br>
+        <textarea id="descripcionLI" class="form-control" name="descripcion" [(ngModel)]="autor.descripcion" rows=8 cols="70"></textarea>
+      </div>
+      <div id="divCorreoNecesario" *ngIf="autorForm.form.controls['direccionEmail']?.errors?.['required'] && autorForm.submitted" class="text-danger">
+        El correo electrónico es obligatorio.
+      </div>
+      <div *ngIf="autorForm.form.controls['direccionEmail']?.errors?.['pattern'] && autorForm.submitted" class="text-danger">
+        Por favor, introduce una dirección de correo electrónico válida según el formato requerido.
+      </div>
+      <div *ngIf="mensajeError" class="text-danger">
+        {{ mensajeError }}
+      </div>
+      <div *ngIf="mensajeExito" class="text-danger">
+        {{ mensajeExito }}
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar autor</button>
+    </form>
+  </div>

@@ -1,0 +1,4 @@
+1.º Ejecuta base de datos (puerto por defecto es 3306)
+2.º Ejecuta Spring Boot (puerto por defecto es 8080)
+3.º Ejecuta Angular (puerto por defecto es 4200). Para ello dentro del directorio raíz del proyecto Angular ejecuta el comando "ng serve -o".
+Para ejectuar Angular es necesario tener instalado npm. Para instalarlo ejecuta en el directorio raíz del proyecto Angular el comando "npm install".

@@ -1,0 +1,53 @@
+<div class="container">
+    <h2>Crear autor</h2>
+    <form #autorForm="ngForm" (ngSubmit)="onSubmit(autorForm)">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><label for="nombreLI">Nombre*:</label></td>
+            <td><input type="text" id="nombreLI" name="nombre" [(ngModel)]="autor.nombre" required></td>
+          </tr>
+          <tr>
+            <td><label for="nacionalidadLI">Nacionalidad:</label></td>
+            <td><input type="text" id="nacionalidadLI" name="nacionalidad" [(ngModel)]="autor.nacionalidad"></td>
+          </tr>
+          <tr>
+            <td><label for="fechaNacimientoLI">Fecha nacimiento:</label></td>
+            <td><input type="date" id="fechaNacimientoLI" name="fechaNacimiento" [(ngModel)]="autor.fechaNacimiento"></td>
+          </tr>
+          <tr>
+            <td><label for="imagenLI">Imagen (enlace):</label></td>
+            <td><input type="text" id="imagenLI" name="imagen" [(ngModel)]="autor.imagen"></td>
+          </tr>
+          <tr>
+            <td><label for="emailLI">Correo electrónico*:</label></td>
+            <td><input type="email" id="emailLI" name="direccionEmail" [(ngModel)]="autor.direccionEmail" required pattern="^[^@]+@[^@]+\.[^@]+$"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <div>
+        <label for="descripcionLI">Descripción:</label><br>
+        <textarea id="descripcionLI" name="descripcion" [(ngModel)]="autor.descripcion" rows="8" cols="70"></textarea>
+      </div>
+      <div id="divCorreoNecesario" *ngIf="autorForm.form.controls['direccionEmail']?.errors?.['required'] && autorForm.submitted" class="text-danger">
+        El correo electrónico es obligatorio.
+      </div>
+      <div *ngIf="autorForm.form.controls['direccionEmail']?.errors?.['pattern'] && autorForm.submitted" class="text-danger">
+        Por favor, introduce una dirección de correo electrónico válida según el formato requerido.
+      </div>
+      <div *ngIf="mensajeError" class="text-danger">
+        {{ mensajeError }}
+      </div>
+      <div *ngIf="mensajeExito" class="text-danger">
+        {{ mensajeExito }}
+      </div>
+
+      <!-- Botón de envío fuera de la tabla -->
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            Crear autor
+          </button>
+      </div>
+    </form>
+  </div>

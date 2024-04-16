@@ -1,0 +1,46 @@
+<div *ngIf="autor">
+    <h3>Detalles del autor {{ autor.nombre }}</h3>
+    <div style="display: flex">
+      <div style="padding-right: 5px;">
+        <img [src]="autor.imagen" style="width: 150px;">
+      </div>
+      <div>
+        {{ autor.descripcion }}
+      </div>
+    </div>
+    <br>
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <th>ID:</th>
+            <td>{{ autor.idAutor }}</td>
+          </tr>
+          <tr>
+            <th>Nombre:</th>
+            <td>{{ autor.nombre }}</td>
+          </tr>
+          <tr>
+            <th>Fecha nacimiento:</th>
+            <td>{{ autor.fechaNacimiento | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+          <tr>
+            <th>Nacionalidad:</th>
+            <td>{{ autor.nacionalidad }}</td>
+          </tr>
+          <tr>
+            <th>Correo Electrónico:</th>
+            <td>{{ autor.direccionEmail }}</td>
+          </tr>
+          <tr>
+            <th>Fecha creación:</th>
+            <td>{{ autor.fechaCreacion }}</td>
+          </tr>
+          <tr>
+            <th>Fecha actualización:</th>
+            <td>{{ autor.fechaActualizacion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<h2>Autores</h2>
+<a routerLink="/autores/crear" class="btn btn-primary">Crear Autor</a> <!-- Corregido el texto -->
+<h3 class="h3">Lista de todos los autores</h3>
+<div style="display: inline-block; border: 1px solid black">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha nacimiento</th>
+                <th>Nacionalidad</th>
+                <th>Correo electrónico</th>
+                <th colspan="3">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let autor of autores">
+                <td>{{ autor.nombre }}</td>
+                <td>{{ autor.fechaNacimiento | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ autor.nacionalidad }}</td>
+                <td>{{ autor.direccionEmail }}</td>
+                <td><a [routerLink]="['/autor', autor.idAutor]" class="btn btn-info">Leer</a></td>
+                <td><a [routerLink]="['/autores/actualizar', autor.idAutor]" class="btn btn-warning">Actualizar</a></td>
+                <td><button (click)="borrarAutorPorId(autor.idAutor)" class="btn btn-danger">Borrar</button></td>
+                <!-- Usar binding dinámico en routerLink -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+<div>
+    <input type="text" [(ngModel)]="ngmodelNacionalidad" placeholder="Ingrese país" style="height: 25px;">
+    <button (click)="navegarPorNacionalidad()" class="btn btn-info">Buscar por Nacionalidad</button>
+</div>
