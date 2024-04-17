@@ -12,10 +12,13 @@ const routes: Routes = [
   { path: 'autor/:idAutorRoutingModule', component: LeerAutorComponent },
   { path: 'autores/crear', component: CrearAutorComponent },
   { path: 'autores/actualizar/:idAutorRoutingModule', component: ActualizarAutorComponent },
+  { path: '', redirectTo: '/autores', pathMatch: 'full' }, // Redirige a /autores si se accede a la raíz
+  { path: 'autores/:textoHtml', component: AutoresComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
+  
 })
 export class AppRoutingModule { }

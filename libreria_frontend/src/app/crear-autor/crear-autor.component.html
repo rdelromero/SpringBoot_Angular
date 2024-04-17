@@ -16,12 +16,12 @@
             <td><input type="date" id="fechaNacimientoLI" name="fechaNacimiento" [(ngModel)]="autor.fechaNacimiento"></td>
           </tr>
           <tr>
-            <td><label for="imagenLI">Imagen (enlace):</label></td>
-            <td><input type="text" id="imagenLI" name="imagen" [(ngModel)]="autor.imagen"></td>
-          </tr>
-          <tr>
             <td><label for="emailLI">Correo electrónico*:</label></td>
             <td><input type="email" id="emailLI" name="direccionEmail" [(ngModel)]="autor.direccionEmail" required pattern="^[^@]+@[^@]+\.[^@]+$"></td>
+          </tr>
+          <tr>
+            <td><label for="imagenLI">Imagen (enlace):</label></td>
+            <td><input type="text" id="imagenLI" name="imagen" [(ngModel)]="autor.imagen" placeholder="nombre-imagen.jpg"></td>
           </tr>
         </tbody>
       </table>

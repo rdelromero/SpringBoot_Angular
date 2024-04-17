@@ -8,10 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.libreria.modelo.entities.Autor;
 
+
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Integer>{
+	
 	Optional<Autor> findByDireccionEmail(String email);
 	List<Autor> findByNacionalidad(String nacionalidad);
+	
+	
 	
 	/*Equivale a
 	 * @Query("SELECT a FROM Autor a WHERE a.nacionalidad = :nacionalidad")

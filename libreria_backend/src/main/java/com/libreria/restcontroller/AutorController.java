@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import com.libreria.modelo.entities.Autor;
 import com.libreria.repository.AutorRepository;
@@ -29,11 +34,22 @@ public class AutorController {
 	@Autowired
 	private AutorRepository autorRepositorio;
 	
-	// 2 LEER (READ) TODOS
+	// 2 LEER (READ) TODOS sin paginar
 	@GetMapping("/autores")
-	public List<Autor> encontrarTodos(){
-		return autorRepositorio.findAll();
-	}		
+    public List<Autor> encontrarTodosAutores() {
+        return autorRepositorio.findAll();
+    }
+	
+	/* En Postman http://localhost:8089/api/autores/?p=1 devolverá los autores 1 a 10
+	 * http://localhost:8089/api/autores/?p=1 devolverá los autores 11 a 20
+	 */
+	@GetMapping("/autores/")
+    public Page<Autor> listaAutores(@RequestParam(value = "p", defaultValue = "1") int page,
+        @RequestParam(value = "size", defaultValue = "10") int size) {
+        // Ajustar el número de página para que comience en 1
+        Pageable pageable = PageRequest.of(page - 1, size);
+        return autorRepositorio.findAll(pageable);
+    }
 	
 	// 2 LEER (READ) POR NACIONALIDAD
 	@CrossOrigin(origins = "http://localhost:4200")

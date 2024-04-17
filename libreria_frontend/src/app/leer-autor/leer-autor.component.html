@@ -2,7 +2,7 @@
     <h3>Detalles del autor {{ autor.nombre }}</h3>
     <div style="display: flex">
       <div style="padding-right: 5px;">
-        <img [src]="autor.imagen" style="width: 150px;">
+        <img [src]="'./assets/imagenes/' + autor.imagen" style="width: 150px;">
       </div>
       <div>
         {{ autor.descripcion }}

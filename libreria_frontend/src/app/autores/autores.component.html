@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let autor of autores">
+            <tr *ngFor="let autor of autores.content">
                 <td>{{ autor.nombre }}</td>
                 <td>{{ autor.fechaNacimiento | date: 'dd/MM/yyyy' }}</td>
                 <td>{{ autor.nacionalidad }}</td>
@@ -25,6 +25,8 @@
             </tr>
         </tbody>
     </table>
+    <button (click)="previousPage()" [disabled]="paginaActual === 1" class="btn btn-secondary">Anterior</button>
+    <button (click)="nextPage()" [disabled]="paginaActual >= numeroPaginas" class="btn btn-secondary">Siguiente</button>
 </div>
 <br><br>
 <div>

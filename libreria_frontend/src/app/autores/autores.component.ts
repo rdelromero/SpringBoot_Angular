@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AutorService } from '../autor.service';
 import { Autor } from '../autor.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-autores',
@@ -9,31 +9,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./autores.component.css']
 })
 export class AutoresComponent implements OnInit {
-  autores: Autor[] = [];
+  autores: any = { content: [] }; 
+  paginaActual = 1;
+  numeroAutoresPorPagina = 10;
+  numeroPaginas: number = 0;
+
   public ngmodelNacionalidad: string = '';
 
-  constructor(private autorService: AutorService, private router: Router) { }
+  constructor(private autorService: AutorService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.cargarAutores();
+    this.autorService.obtenerTodosAutoresBack().subscribe(data => {
+      //Obtener el número de páginas, data.length representa el número de autores
+      this.numeroPaginas = Math.ceil(data.length / this.numeroAutoresPorPagina);
+    });
+    // Suscribirse a los parámetros de consulta para manejar cambios en la paginación
+    this.route.queryParams.subscribe(params => {
+      //page es el número de página
+      const pagina = parseInt(params['p']) || this.paginaActual;  // Asegura que 'page' sea un número
+      this.cargarAutores(pagina);
+    });
   }
 
-  cargarAutores(): void {
-    this.autorService.obtenerTodosAutoresBack().subscribe({
-      next: (data) => {
-        this.autores = data;
-      },
-      error: (error) => {
-        console.error('Error al obtener autores:', error);
-      }
+  cargarAutores(page: number): void {
+    this.paginaActual = page;  // Actualiza la página actual
+    this.autorService.obtenerTodosAutoresBackConPaginacion(page, this.numeroAutoresPorPagina).subscribe(data => {
+      this.autores = data;
+    }, error => {
+      console.error('Error al cargar autores:', error);
     });
+  }
+
+  nextPage(): void {
+    this.updatePage(this.paginaActual + 1);
+  }
+
+  previousPage(): void {
+    if (this.paginaActual > 1) {
+      this.updatePage(this.paginaActual - 1);
+    }
+  }
+
+  private updatePage(page: number): void {
+    this.router.navigate(['/autores'], { queryParams: { p: page } });
   }
 
   borrarAutorPorId(idAutor: number) {
     this.autorService.borrarAutorPorIdBack(idAutor).subscribe({
       next: () => {
-        console.log('Mensaje desde Angular: Autor borrado correctamente.');
-        this.cargarAutores(); // Recarga la lista de autores después de borrar
+        this.route.queryParams.subscribe(params => {
+          const page = parseInt(params['p']) || this.paginaActual;  // Asegura que 'page' sea un número
+          this.cargarAutores(page);
+        });
       },
       error: (error) => console.error('Error al eliminar autor', error)
     });

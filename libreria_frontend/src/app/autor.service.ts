@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Autor } from './autor.model';
 
@@ -14,6 +14,16 @@ export class AutorService {
   obtenerTodosAutoresBack(): Observable<Autor[]> {
     return this.http.get<Autor[]>(this.apiUrl);
   }
+
+  obtenerTodosAutoresBackConPaginacion(pagina: number, autoresPorPagina: number): Observable<any> {
+    let params = new HttpParams()
+      .set('p', pagina.toString())
+      .set('size', autoresPorPagina.toString());
+      console.log({ params });
+    return this.http.get(`${this.apiUrl}/`, { params });
+    //return this.http.get(`${this.apiUrl}/`, { params });
+  }
+
 
   obtenerAutoresPorNacionalidad(nacionalidad: string): Observable<Autor[]> {
     return this.http.get<Autor[]>(`${this.apiUrl}/nacionalidad/${nacionalidad}`);
